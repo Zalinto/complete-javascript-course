@@ -13,3 +13,13 @@ console.log(typeof population);
 console.log(typeof language);
 
 language = 'English';
+
+const age = 19;
+const isOldEnoguh = age >= 18;
+
+if(isOldEnoguh) {
+    console.log('Sarah can start her driving license');
+}
+else {
+    console.log('Sarah cant start her driving license');
+}
