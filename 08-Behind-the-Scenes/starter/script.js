@@ -1,34 +1,15 @@
-'use strict';
+let lastName = 'De Chavez';
+let oldLastName = lastName;
 
-var firstName = 'Matilda';
+lastName = 'Davis';
+console.log(lastName, oldLastName);
 
-const josh = {
-    firstName: 'Joshua',
-    year: 2000, 
-    calcAge: function() {
-        console.log(2024 - this.year);
-
-        const isMillenial = () => {
-            console.log(this);
-            console.log(this.year >= 1981 && this.year <= 1996);
-        }
-        isMillenial(); // regular function call so this points to undefined
-    },
-
-    greet: () => {
-        console.log(`Hey ${this}`)
-        console.log(`Hey ${this.firstName}`)
-    },
+const jessica = {
+    firstName: 'jessica',
+    lastName: 'De Chavez',
+    age: 24,
 };
 
-josh.greet();
-josh.calcAge();
-
-const addExpr = function (a,b) {
-    console.log(arguments);
-    return a + b;
-}
-
-addExpr(2,5);
-
-var addArrow = (a,b) => a+b;
+const marriedJessica = jessica;
+marriedJessica.lastName = 'Davis';
+console.log(jessica, marriedJessica); // both have last name davis
