@@ -62,15 +62,133 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
+
+const displayMovements = (movements) => {
+  movements.forEach((movement, i) => {
+    containerMovements.innerHTML = '';
+
+    const type = movement > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+        <div class="movements__value">${movement}€</div>
+      </div>
+    `;
+
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movements);
+
+const user = 'Joshua De Chavez';
+
+const calcPrintBalance = (movements) => {
+  const balance = movements.reduce((acc, cur) => acc + cur, 0);
+  labelBalance.textContent = `${balance}€`;
+}
+
+calcPrintBalance(account1.movements);
+
+const calcDisplaySummary = (movements) => {
+  const incomes = movements.filter(mov => mov > 0)
+                            .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = movements.filter(mov => mov < 0)
+                        .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = movements.filter(mov => mov > 0)
+                            .map((mov) => mov * .012)
+                            .filter(mov => mov >= 1)
+                            .reduce((acc, mov) => acc + mov, 0);
+
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements)
+
+const createUsernames = (accs) => {
+  accs.forEach((acc) => {
+    acc.username = acc.owner
+    .toLowerCase()
+    .split(' ')
+    .map(name => name.charAt(0))
+    .join('');
+  })
+
+}
+
+createUsernames(accounts);
+
+
+// let login = false;
+
+// btnLogin.addEventListener('click', () => {
+//   const username = inputLoginUsername.value; // Get the input value
+  
+//   login = accounts.find(account => account.owner === username); // Check if any account matches the username
+// });
+// console.log(login);
+
+
 /////////////////////////////////////////////////
-// LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const eurToUsd = 1.1;
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movementsUSD = account1.movements.map(current => current * eurToUsd);
 
-/////////////////////////////////////////////////
+// console.log(account1.movements);
+// console.log(movementsUSD);
+
+// const movementsUSDfor = [];
+// for(const mov of account1.movements) movementsUSDfor.push(mov * eurToUsd);
+// console.log(movementsUSDfor);
+
+// const movementDesc = account1.movements.map((mov, i) =>
+//   `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`
+// );
+
+// console.log(movementDesc);
+const movements = account1.movements;
+
+const arr = [[1,2,3],[4,5,6],7,8]
+console.log(arr.flat());
+
+const arr2 = [[[1,2],3],[4,[5,6]],7,8]
+console.log(arr2.flat());
+
+const overallBalance = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0 );
+
+console.log(overallBalance);
+
+// Ascending Order
+movements.sort((a,b) => {
+  if(a > b) 
+    return 1;
+  if(b > a)
+    return -1;
+});
+console.log(movements);
+
+// Descending Order
+movements.sort((a,b) => {
+  if(a > b) 
+    return -1;
+  if(b > a)
+    return 1;
+});
+console.log(movements);
+
+// Ascending Order
+movements.sort((a,b) => a-b);
+
+// Descending Order
+movements.sort((a,b) => b-a);
+
+const x = new Array(9);
+console.log(x.map)
